@@ -1,0 +1,264 @@
+/* =============================
+   NEON DRIFT — style.css
+   Aesthetic: Retro Arcade / Synthwave
+   ============================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
+
+:root {
+  --neon-cyan:    #00f5ff;
+  --neon-pink:    #ff006e;
+  --neon-yellow:  #ffe600;
+  --neon-green:   #39ff14;
+  --bg-dark:      #060612;
+  --bg-mid:       #0d0d2b;
+  --road-color:   #111122;
+  --lane-color:   #ffffff18;
+  --text-glow:    0 0 8px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+  --pink-glow:    0 0 8px var(--neon-pink), 0 0 24px var(--neon-pink);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  width: 100%; height: 100%;
+  background: var(--bg-dark);
+  font-family: 'Orbitron', monospace;
+  color: #fff;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ---- SCREENS ---- */
+.screen {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.35s ease;
+  z-index: 10;
+}
+.screen.active {
+  opacity: 1; pointer-events: all;
+}
+
+/* ---- SCANLINES overlay ---- */
+.scanlines {
+  position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,0.18) 3px,
+    rgba(0,0,0,0.18) 4px
+  );
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* ---- START SCREEN ---- */
+#screen-start {
+  background: radial-gradient(ellipse at 50% 60%, #0a0a2e 0%, #060612 70%);
+  flex-direction: column;
+}
+
+.start-content {
+  position: relative; z-index: 10;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 18px;
+  text-align: center;
+}
+
+.logo {
+  display: flex; flex-direction: column;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.logo-neon {
+  font-size: clamp(56px, 14vw, 110px);
+  font-weight: 900;
+  color: var(--neon-cyan);
+  text-shadow: var(--text-glow), 0 0 60px var(--neon-cyan);
+  letter-spacing: 0.18em;
+  animation: flicker 5s infinite;
+}
+.logo-drift {
+  font-size: clamp(36px, 9vw, 72px);
+  font-weight: 700;
+  color: var(--neon-pink);
+  text-shadow: var(--pink-glow), 0 0 60px var(--neon-pink);
+  letter-spacing: 0.35em;
+}
+
+@keyframes flicker {
+  0%,95%,100% { opacity: 1; }
+  96% { opacity: 0.7; }
+  97% { opacity: 1; }
+  98% { opacity: 0.4; }
+  99% { opacity: 1; }
+}
+
+.tagline {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(12px, 2.5vw, 16px);
+  color: #aaa;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.controls-hint {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(11px, 2vw, 14px);
+  color: var(--neon-yellow);
+  background: rgba(255,230,0,0.08);
+  border: 1px solid rgba(255,230,0,0.3);
+  padding: 8px 20px;
+  border-radius: 4px;
+  letter-spacing: 0.1em;
+}
+
+.btn-play {
+  font-family: 'Orbitron', monospace;
+  font-size: clamp(14px, 3vw, 20px);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  color: var(--bg-dark);
+  background: var(--neon-cyan);
+  border: none;
+  padding: 14px 48px;
+  cursor: pointer;
+  clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  transition: transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px rgba(0,245,255,0.3);
+  animation: pulse-btn 2s ease-in-out infinite;
+}
+.btn-play:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 30px var(--neon-cyan), 0 0 60px rgba(0,245,255,0.5);
+}
+.btn-play:active { transform: scale(0.97); }
+
+@keyframes pulse-btn {
+  0%,100% { box-shadow: 0 0 20px var(--neon-cyan), 0 0 40px rgba(0,245,255,0.3); }
+  50%      { box-shadow: 0 0 30px var(--neon-cyan), 0 0 70px rgba(0,245,255,0.5); }
+}
+
+.high-score-display {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 13px;
+  color: var(--neon-yellow);
+  letter-spacing: 0.2em;
+}
+
+/* ---- GAME SCREEN ---- */
+#screen-game {
+  background: var(--bg-dark);
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 1;
+}
+
+.hud {
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px 6px;
+  font-size: clamp(10px, 2.5vw, 14px);
+  letter-spacing: 0.15em;
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--neon-cyan);
+}
+
+.hud-score span,
+.hud-speed span {
+  color: #fff;
+  font-weight: bold;
+}
+
+.heart {
+  color: var(--neon-pink);
+  font-size: 1.3em;
+  text-shadow: var(--pink-glow);
+  transition: opacity 0.3s, color 0.3s;
+}
+.heart.lost {
+  color: #333;
+  text-shadow: none;
+  opacity: 0.4;
+}
+
+#gameCanvas {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  border-left: 2px solid rgba(0,245,255,0.15);
+  border-right: 2px solid rgba(0,245,255,0.15);
+}
+
+/* ---- GAME OVER SCREEN ---- */
+#screen-over {
+  background: radial-gradient(ellipse at 50% 40%, #1a000d 0%, #060612 70%);
+  flex-direction: column;
+}
+
+.over-content {
+  position: relative; z-index: 10;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 22px;
+  text-align: center;
+}
+
+.over-title {
+  font-size: clamp(64px, 18vw, 130px);
+  font-weight: 900;
+  line-height: 0.9;
+  color: var(--neon-pink);
+  text-shadow: var(--pink-glow), 0 0 80px var(--neon-pink);
+  animation: shake-in 0.5s cubic-bezier(.36,.07,.19,.97);
+}
+
+@keyframes shake-in {
+  0%  { transform: scale(1.4) rotate(-3deg); opacity: 0; }
+  60% { transform: scale(0.95) rotate(1deg); }
+  100%{ transform: scale(1) rotate(0); opacity: 1; }
+}
+
+.over-score, .over-best {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: clamp(16px, 4vw, 22px);
+  letter-spacing: 0.2em;
+  color: #ddd;
+}
+.over-score span { color: var(--neon-yellow); font-size: 1.3em; }
+.over-best span  { color: var(--neon-green);  }
+
+/* ---- MOBILE TOUCH BUTTONS ---- */
+#touch-controls {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 30px;
+  z-index: 20;
+}
+
+@media (max-width: 600px) {
+  #touch-controls { display: flex; }
+}
+
+.touch-btn {
+  width: 72px; height: 72px;
+  background: rgba(0,245,255,0.12);
+  border: 2px solid rgba(0,245,255,0.4);
+  border-radius: 50%;
+  font-size: 28px;
+  color: var(--neon-cyan);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.1s;
+}
+.touch-btn:active { background: rgba(0,245,255,0.35); }

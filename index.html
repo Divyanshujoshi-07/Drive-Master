@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NEON DRIFT — Car Game</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- SCREEN: START -->
+  <div id="screen-start" class="screen active">
+    <div class="scanlines"></div>
+    <div class="start-content">
+      <div class="logo">
+        <span class="logo-neon">NEON</span>
+        <span class="logo-drift">DRIFT</span>
+      </div>
+      <p class="tagline">Survive the endless highway</p>
+      <div class="controls-hint">
+        <span>← → Arrow Keys / A D to steer</span>
+      </div>
+      <button id="btn-start" class="btn-play">PRESS START</button>
+      <div class="high-score-display">BEST: <span id="best-score">0</span></div>
+    </div>
+  </div>
+
+  <!-- SCREEN: GAME -->
+  <div id="screen-game" class="screen">
+    <div class="hud">
+      <div class="hud-score">SCORE <span id="score">0</span></div>
+      <div class="hud-speed">SPEED <span id="speed-val">1</span>x</div>
+      <div class="hud-lives">
+        <span class="heart" id="h1">♥</span>
+        <span class="heart" id="h2">♥</span>
+        <span class="heart" id="h3">♥</span>
+      </div>
+    </div>
+    <canvas id="gameCanvas"></canvas>
+  </div>
+
+  <!-- SCREEN: GAME OVER -->
+  <div id="screen-over" class="screen">
+    <div class="scanlines"></div>
+    <div class="over-content">
+      <h1 class="over-title">GAME<br>OVER</h1>
+      <div class="over-score">SCORE: <span id="final-score">0</span></div>
+      <div class="over-best">BEST: <span id="over-best">0</span></div>
+      <button id="btn-restart" class="btn-play">PLAY AGAIN</button>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
